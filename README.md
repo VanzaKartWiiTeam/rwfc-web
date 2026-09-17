@@ -19,7 +19,6 @@ This README is aimed at developers setting up the project locally for developmen
 - [API Reference](#api-reference)
 - [Health Checks](#health-checks)
 - [Track Sync Tool](#track-sync-tool)
-- [Things That Look Wrong But Are Not](#things-that-look-wrong-but-are-not)
 
 ---
 
