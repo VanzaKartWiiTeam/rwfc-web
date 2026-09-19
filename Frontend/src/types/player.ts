@@ -4,6 +4,7 @@ export interface Player {
     friendCode: string;
     vr: number;
     rank: number;
+    prestigeRank: number;
     lastSeen: string;
     isSuspicious: boolean;
     vrStats: VRStats;
@@ -21,6 +22,7 @@ export interface PlayerSearchResult {
     friendCode: string;
     vr: number;
     rank: number;
+    prestigeRank: number;
     isSuspicious: boolean;
     lastSeen: string;
 }

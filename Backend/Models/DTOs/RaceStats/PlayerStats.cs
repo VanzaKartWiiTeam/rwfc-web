@@ -6,6 +6,7 @@ public record PlayerStatsDto(
     string Fc,
     int Vr,
     int Rank,
+    int PrestigeRank,
     DateTime LastSeen,
     bool IsSuspicious,
     int VrGain24h,

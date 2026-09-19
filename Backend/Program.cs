@@ -116,6 +116,7 @@ builder.Services.AddScoped<ITimeTrialModerationService, TimeTrialModerationServi
 builder.Services.AddSingleton<IRoomStatusService, RoomStatusService>();
 builder.Services.AddScoped<IRaceResultService, RaceResultService>();
 builder.Services.AddScoped<IRaceStatsService, RaceStatsService>();
+builder.Services.AddScoped<IStreakService, StreakService>();
 
 // ===== BACKGROUND SERVICES =====
 builder.Services.AddSingleton<ILeaderboardBackgroundService, LeaderboardBackgroundService>();

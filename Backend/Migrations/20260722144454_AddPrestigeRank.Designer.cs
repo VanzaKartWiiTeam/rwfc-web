@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using RetroRewindWebsite.Data;
@@ -13,9 +14,11 @@ using RetroRewindWebsite.Models.Entities.Room;
 namespace RetroRewindWebsite.Migrations
 {
     [DbContext(typeof(LeaderboardDbContext))]
-    partial class LeaderboardDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260722144454_AddPrestigeRank")]
+    partial class AddPrestigeRank
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -188,53 +191,6 @@ namespace RetroRewindWebsite.Migrations
                     b.HasIndex("MiiImageFetchedAt");
 
                     b.ToTable("PlayerMiiCaches");
-                });
-
-            modelBuilder.Entity("RetroRewindWebsite.Models.Entities.Player.PlayerStreakEntity", b =>
-                {
-                    b.Property<long>("ProfileId")
-                        .HasColumnType("bigint");
-
-                    b.Property<int>("BestStreak")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CurrentStreak")
-                        .HasColumnType("integer");
-
-                    b.Property<DateOnly?>("LastActiveDay")
-                        .HasColumnType("date");
-
-                    b.Property<int>("LostStreak")
-                        .HasColumnType("integer");
-
-                    b.Property<DateOnly?>("LostStreakLastDay")
-                        .HasColumnType("date");
-
-                    b.Property<DateOnly?>("LostStreakStartDay")
-                        .HasColumnType("date");
-
-                    b.Property<int>("RestoreMonth")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("RestoresUsed")
-                        .HasColumnType("integer");
-
-                    b.Property<DateOnly?>("StreakStartDay")
-                        .HasColumnType("date");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<DateOnly?>("VacationSince")
-                        .HasColumnType("date");
-
-                    b.HasKey("ProfileId");
-
-                    b.HasIndex("CurrentStreak");
-
-                    b.HasIndex("LastActiveDay");
-
-                    b.ToTable("PlayerStreaks");
                 });
 
             modelBuilder.Entity("RetroRewindWebsite.Models.Entities.Player.VRHistoryEntity", b =>

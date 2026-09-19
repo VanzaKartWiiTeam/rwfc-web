@@ -5,5 +5,6 @@ public record InGamePlayerDto(
     string FriendCode,
     int VR,
     int Rank,
+    int PrestigeRank,
     string? MiiData
 );

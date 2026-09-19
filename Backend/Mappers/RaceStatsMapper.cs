@@ -24,6 +24,7 @@ public static class RaceStatsMapper
         Fc: player.Fc,
         Vr: player.Ev,
         Rank: player.Rank,
+        PrestigeRank: player.PrestigeRank,
         LastSeen: player.LastSeen,
         IsSuspicious: player.IsSuspicious,
         VrGain24h: player.VRGainLast24Hours,

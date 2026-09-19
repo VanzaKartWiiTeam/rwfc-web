@@ -12,6 +12,7 @@ public class PlayerEntity
     public required string Name { get; set; }
     public required string Fc { get; set; } // Friend code, stored string format as sent by WFC (e.g. "1234-5678-9012")
     public int Ev { get; set; } // VR as sent by WFC, can be 0 if missing/invalid
+    public int PrestigeRank { get; set; } // In-game prestige rank (0-8)
     public required string MiiData { get; set; }
 
     public DateTime LastSeen { get; set; }

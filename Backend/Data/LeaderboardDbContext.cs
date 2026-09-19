@@ -24,6 +24,7 @@ public class LeaderboardDbContext : DbContext
     public DbSet<GhostSubmissionEntity> GhostSubmissions { get; set; }
     public DbSet<RaceResultEntity> RaceResults { get; set; }
     public DbSet<RoomSnapshotEntity> RoomSnapshots { get; set; }
+    public DbSet<PlayerStreakEntity> PlayerStreaks { get; set; }
     // ===== MODEL CONFIGURATION =====
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

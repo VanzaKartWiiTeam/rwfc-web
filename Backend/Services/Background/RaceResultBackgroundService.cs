@@ -19,6 +19,16 @@ public class RaceResultBackgroundService : PollingBackgroundService, IRaceResult
 
         try
         {
+            using var scope = ServiceScopeFactory.CreateScope();
+            await scope.ServiceProvider.GetRequiredService<IStreakService>().BackfillIfEmptyAsync();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error backfilling streaks from stored race results");
+        }
+
+        try
+        {
             await PerformAsync(stoppingToken);
         }
         catch (OperationCanceledException)

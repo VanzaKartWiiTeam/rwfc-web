@@ -213,6 +213,8 @@ public class LeaderboardSyncService : ILeaderboardSyncService
         if (existingPlayer.Fc != apiPlayer.Fc)
             existingPlayer.Fc = apiPlayer.Fc;
 
+        existingPlayer.PrestigeRank = apiPlayer.PrestigeRank;
+
         if (existingPlayer.Ev != apiPlayer.VR)
         {
             existingPlayer.Ev = apiPlayer.VR;
@@ -256,19 +258,31 @@ public class LeaderboardSyncService : ILeaderboardSyncService
     /// <param name="groups">A list of groups from which to extract external players. Only groups with allowed room types are considered.</param>
     /// <returns>A list of external players with a VR value greater than zero from the allowed groups. The list will be empty if
     /// no matching players are found.</returns>
-    private static List<ExternalPlayer> ExtractPlayersFromGroups(List<Group> groups)
+    private List<ExternalPlayer> ExtractPlayersFromGroups(List<Group> groups)
     {
         var players = new List<ExternalPlayer>();
 
         foreach (var group in groups)
         {
-            if (!string.IsNullOrEmpty(group.Rk) && !AllowedRoomTypes.Contains(group.Rk))
+            if (!string.IsNullOrEmpty(group.Rk) &&
+                !AllowedRoomTypes.Contains(group.Rk) &&
+                !group.Rk.StartsWith("vs", StringComparison.OrdinalIgnoreCase) &&
+                !group.Rk.StartsWith("f", StringComparison.OrdinalIgnoreCase))
+            {
+                _logger.LogInformation("Skipping room {GroupId} with type {RoomType} because it is not allowed.", group.Id, group.Rk);
                 continue;
+            }
 
             foreach (var (_, player) in group.Players)
             {
                 if (player.VR > 0)
+                {
                     players.Add(player);
+                }
+                else
+                {
+                    _logger.LogInformation("Player {PlayerName} ({Pid}) in room {GroupId} ({RoomType}) skipped because VR is {VR}.", player.Name, player.Pid, group.Id, group.Rk, player.VR);
+                }
             }
         }
 
@@ -293,6 +307,7 @@ public class LeaderboardSyncService : ILeaderboardSyncService
             Name = apiPlayer.Name,
             Fc = apiPlayer.Fc,
             Ev = apiPlayer.VR,
+            PrestigeRank = apiPlayer.PrestigeRank,
             MiiData = miiData,
             LastSeen = DateTime.UtcNow,
             LastUpdated = DateTime.UtcNow,

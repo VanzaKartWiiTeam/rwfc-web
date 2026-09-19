@@ -6,6 +6,7 @@ public record PlayerDto(
     string FriendCode,
     int VR,
     int Rank,
+    int PrestigeRank,
     DateTime LastSeen,
     bool IsSuspicious,
     VRStatsDto VRStats,

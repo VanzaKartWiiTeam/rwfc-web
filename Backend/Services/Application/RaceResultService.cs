@@ -36,6 +36,7 @@ public class RaceResultService : IRaceResultService
 
             var totalNewResults = 0;
             var totalSkippedResults = 0;
+            var activeProfileIds = new HashSet<long>();
 
             foreach (var group in groups)
             {
@@ -92,6 +93,7 @@ public class RaceResultService : IRaceResultService
                         {
                             await raceResultRepository.AddRaceResultsAsync(allNewResults);
                             totalNewResults += allNewResults.Count;
+                            activeProfileIds.UnionWith(allNewResults.Select(r => r.ProfileId));
                         }
                         catch (DbUpdateException ex) when (
                             ex.InnerException is Npgsql.PostgresException pgEx &&
@@ -110,6 +112,8 @@ public class RaceResultService : IRaceResultService
                 }
             }
 
+            await RecordStreakActivityAsync(activeProfileIds);
+
             if (totalNewResults > 0 || totalSkippedResults > 0)
             {
                 _logger.LogInformation(
@@ -120,6 +124,24 @@ public class RaceResultService : IRaceResultService
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error during race result collection");
+        }
+    }
+
+    private async Task RecordStreakActivityAsync(HashSet<long> profileIds)
+    {
+        if (profileIds.Count == 0)
+            return;
+
+        // Fresh scope: a failed insert above leaves its entities tracked in the shared context
+        try
+        {
+            using var scope = _serviceScopeFactory.CreateScope();
+            var streakService = scope.ServiceProvider.GetRequiredService<IStreakService>();
+            await streakService.RecordActivityAsync(profileIds, DateTime.UtcNow);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error recording streak activity for {Count} profiles", profileIds.Count);
         }
     }
 }

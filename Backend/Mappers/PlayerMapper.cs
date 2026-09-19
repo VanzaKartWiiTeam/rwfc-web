@@ -17,6 +17,7 @@ public static class PlayerMapper
         FriendCode: entity.Fc,
         VR: entity.Ev,
         Rank: entity.Rank,
+        PrestigeRank: entity.PrestigeRank,
         LastSeen: entity.LastSeen,
         IsSuspicious: entity.IsSuspicious,
         VRStats: new VRStatsDto(
@@ -36,6 +37,7 @@ public static class PlayerMapper
         FriendCode: entity.Fc,
         VR: entity.Ev,
         Rank: entity.Rank,
+        PrestigeRank: entity.PrestigeRank,
         LastSeen: entity.LastSeen,
         IsSuspicious: entity.IsSuspicious,
         VRStats: new VRStatsDto(
@@ -56,6 +58,7 @@ public static class PlayerMapper
         FriendCode: entity.Fc,
         VR: entity.Ev,
         Rank: entity.Rank,
+        PrestigeRank: 0,
         LastSeen: entity.SnapshotDate,
         IsSuspicious: entity.IsSuspicious,
         VRStats: new VRStatsDto(0, 0, 0),
@@ -71,6 +74,7 @@ public static class PlayerMapper
         FriendCode: entity.Fc,
         VR: entity.Ev,
         Rank: entity.Rank,
+        PrestigeRank: entity.PrestigeRank,
         MiiData: entity.MiiData
     );
 
