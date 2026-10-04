@@ -16,6 +16,8 @@ public class LeaderboardDbContext : DbContext
     // ===== DB SETS =====
 
     public DbSet<PlayerEntity> Players { get; set; }
+    public DbSet<BadgeEntity> Badges { get; set; }
+    public DbSet<PlayerBadgeEntity> PlayerBadges { get; set; }
     public DbSet<PlayerMiiCacheEntity> PlayerMiiCaches { get; set; }
     public DbSet<VRHistoryEntity> VRHistories { get; set; }
     public DbSet<LegacyPlayerEntity> LegacyPlayers { get; set; }
